@@ -1,3 +1,4 @@
+from pathlib import Path
 import numpy as np
 
 from core import ActivationFunction, LossFunction
@@ -108,3 +109,41 @@ class NumberClassifier(ActivationFunction, LossFunction):
         ] * 100
 
         return loss, accuracy, predictions, confidence
+
+    def save(self, path="models/number_classifier.npz"):
+        path = Path(path)
+
+        # Create directory if it doesn't exist
+        path.parent.mkdir(parents=True, exist_ok=True)
+
+        # Save trained weights and biases
+        np.savez_compressed(
+            path,
+            W1=self.W1,
+            b1=self.b1,
+            W2=self.W2,
+            b2=self.b2,
+            W3=self.W3,
+            b3=self.b3
+        )
+
+        print(f"Model saved to {path}")
+
+    def load(self, path="models/number_classifier.npz"):
+        with np.load(path, allow_pickle=False) as data:
+            # Validate architecture compatibility
+            for name in ("W1", "b1", "W2", "b2", "W3", "b3"):
+                saved = data[name]
+                current = getattr(self, name)
+
+                if saved.shape != current.shape:
+                    raise ValueError(
+                        f"{name}: expected {current.shape}, "
+                        f"got {saved.shape}"
+                    )
+
+            # Restore trained parameters
+            for name in ("W1", "b1", "W2", "b2", "W3", "b3"):
+                setattr(self, name, data[name].copy())
+
+        print(f"Model loaded from {path}")

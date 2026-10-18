@@ -17,16 +17,18 @@ NumberClassifier is an educational machine learning project that implements a fu
 
 ## Neural Network Architecture
 
-Each input is an **8 × 8** grayscale image flattened into **64 features**. The network has two configurable hidden layers and an output layer with **10 neurons**, one for each digit.
+![NumberClassifier Neural Network Architecture](NumberClassifier%20Neural%20Network%20Architecture.png)
+
+Each input is an **8 × 8** grayscale image flattened into **64 features**. The network has two configurable hidden layers and an output layer with **10 neurons**, one for each digit. The architecture illustrated above uses **32 neurons in the first hidden layer** and **20 neurons in the second**.
 
 ```text
 Input image (64 features)
           |
           v
-Hidden layer 1 (Sigmoid)
+Hidden layer 1 (32 neurons, Sigmoid)
           |
           v
-Hidden layer 2 (Sigmoid)
+Hidden layer 2 (20 neurons, Sigmoid)
           |
           v
 Output layer (10 classes, Softmax)
@@ -87,7 +89,7 @@ The classification report includes **precision**, **recall**, **F1-score**, and 
 
 The confusion matrix shows actual versus predicted digits. Entries on the main diagonal are correct classifications; off-diagonal entries indicate errors.
 
-> **Note:** These image links work when `README.md` is in the repository root and the four PNG files exist under `plots/`. Commit the images to GitHub to display them in the rendered README.
+> **Note:** The images display on GitHub when `README.md` and `NumberClassifier Neural Network Architecture.png` are in the repository root, and the four evaluation/training PNG files exist under `plots/`. Commit all images to the repository.
 
 ## Project Structure
 
@@ -109,6 +111,7 @@ NumberClassifier/
 │   ├── training_accuracy.png
 │   ├── classification_report.png
 │   └── confusion_matrix.png
+├── NumberClassifier Neural Network Architecture.png
 ├── number_classifier.py
 ├── main.ipynb
 ├── requirements.txt
